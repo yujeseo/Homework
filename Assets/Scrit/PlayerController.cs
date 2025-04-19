@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isGrounded;
+    private bool isInvincibility = false;
 
 
     // Start is called before the first frame update
@@ -46,15 +47,42 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Respawn"))
+        switch (collision.tag)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            case "Respawn":
+                if (!isInvincibility)
+                {
+
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                break;
+            case "Finish":
+                collision.GetComponent<LevelObject>().MoveToNextLevel();
+                break;
+            case "Enemy":
+                if (isInvincibility)
+                {
+                    Debug.Log("Àû ¹«½Ã");
+                }
+                else
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                break; 
+
+            case "sheild":
+                isInvincibility = true;
+                Destroy(collision.gameObject);
+                break;
+
+            case "speed":
+                moveSpeed = 6f;
+                Destroy(collision.gameObject);
+                break;
+
         }
 
-        if (collision.CompareTag("Finish"))
-        {
-            collision.GetComponent<LevelObject>().MoveToNextLevel();
-        }
+
 
 
 
