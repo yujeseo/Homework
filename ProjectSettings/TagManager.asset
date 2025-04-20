@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - sheild
   - speed
+  - Jump
   layers:
   - Default
   - TransparentFX

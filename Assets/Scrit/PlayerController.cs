@@ -80,6 +80,13 @@ public class PlayerController : MonoBehaviour
                 Destroy(collision.gameObject);
                 break;
 
+            case "Jump":
+                jumpForce = 6f;
+                Destroy(collision.gameObject);
+                break;
+
+
+
         }
 
 
