@@ -9,6 +9,8 @@ TagManager:
   - sheild
   - speed
   - Jump
+  - UnSheild
+  - open wall
   layers:
   - Default
   - TransparentFX

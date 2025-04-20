@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool isInvincibility = false;
 
+    public GameObject wall;
 
     // Start is called before the first frame update
     private void Awake()
@@ -27,6 +28,12 @@ public class PlayerController : MonoBehaviour
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+
+        if (moveInput < 0)
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+        if (moveInput > 0)
+            transform.localScale = new Vector3(1f, 1f, 1f);
+
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
@@ -85,6 +92,14 @@ public class PlayerController : MonoBehaviour
                 Destroy(collision.gameObject);
                 break;
 
+            case "UmSheild":
+                isInvincibility = false;
+                Destroy(collision.gameObject);
+                break;
+            case "open wall":
+                Destroy(wall);
+                Destroy(collision.gameObject);
+                break;
 
 
         }
